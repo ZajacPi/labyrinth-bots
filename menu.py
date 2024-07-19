@@ -26,7 +26,6 @@ class Menu:
                         if rect.collidepoint(mouse_pos):
                             print("collision")
                             if text == 'Map Creator':
-                                print("Clicked map creator")
                                 return 'MAP_CREATOR'
                             elif text == 'Run simulation':
                                 return 'SIMULATION'

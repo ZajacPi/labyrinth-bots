@@ -2,10 +2,10 @@ import pygame
 import numpy as np
 
 class MapCreator:
-    def __init__(self, screen, screen_size):
+    def __init__(self, screen, screen_size, grid=np.full((10, 10), 0)):
         self.screen_width, self.screen_height = screen_size
         self.screen = screen
-        self.grid = np.full((10, 10), 0)
+        self.grid = grid
         self.width = 20
         self.height = 20
         self.margin = 5
@@ -33,7 +33,7 @@ class MapCreator:
             'Create Walls': pygame.Rect(buttons_margin, buttons_height, interval-50, 50),
             'Place Bot': pygame.Rect(interval*1, buttons_height, interval-buttons_margin, 50),
             'Place Exit': pygame.Rect(interval*2, buttons_height, interval-buttons_margin, 50),
-            'Quit': pygame.Rect(interval*3, buttons_height, interval-buttons_margin, 50)
+            'Finished': pygame.Rect(interval*3, buttons_height, interval-buttons_margin, 50)
         }
     def run(self):
         self.screen.fill('black')
@@ -64,9 +64,8 @@ class MapCreator:
                                 self.place_bot = False
                                 self.make_walls = False
                                 self.active_button = text
-                            elif text == 'Quit':
-                                pygame.quit()
-                                exit() 
+                            elif text == 'Finished':
+                                return 'MENU', self.grid
 
                     mouse = ((mouse[0] - self.left_margin) // (self.width + self.margin), (mouse[1] - self.top_margin) // (self.height + self.margin))
                     if 0 <= mouse[0] < 10 and 0 <= mouse[1] < 10:
